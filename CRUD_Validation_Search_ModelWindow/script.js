@@ -25,8 +25,6 @@ function ToggleOverlay() {
 }
 overlay.addEventListener('click', () => {
     overlay.classList.add('hidden');
-    form.reset();
-    saveBtn.textContent = "Submit"
 })
 
 document.querySelectorAll('.overlay').forEach(btn => {
@@ -174,8 +172,8 @@ table.addEventListener('click', (e) => {
 // edit()
 function editStudent(id) {
     ToggleOverlay()
-    nameError.textContent = "";
-    emailError.textContent = "";
+    clearError(nameError);
+    clearError(emailError);
     const student = students.find(s => s.id === id);
     if (student) {
         nameInput.value = student.name;
@@ -193,6 +191,27 @@ function deleteStudent(id) {
     setStudent("students", students);
     renderStudents();
 }
+
+// sort by marks
+const sortBtn = document.getElementById("sort-marks");
+let isAscending = true;
+
+sortBtn.addEventListener("click", () => {
+    students.sort((a, b) => {
+        return isAscending 
+            ? Number(a.marks) - Number(b.marks)
+            : Number(b.marks) - Number(a.marks);
+    });
+
+    isAscending = !isAscending;
+
+    sortBtn.textContent = isAscending 
+        ? "Sort by Marks ↑" 
+        : "Sort by Marks ↓";
+
+    renderStudents();
+});
+
 
 filterInput.addEventListener('input', renderStudents)
 // init()
