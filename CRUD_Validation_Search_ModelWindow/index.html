@@ -27,14 +27,14 @@
                     <label for="name" class="font-bold">Name</label>
                     <input type="text" id="name" placeholder="Name"
                         class="p-1.5 border rounded border-blue-200 focus:outline-blue-500">
-                    <p id="name-error" class=" absolute left-1/2  text-sm text-red-500"></p>
+                    <p id="name-error" class=" hidden absolute left-1/2  text-sm text-red-500"></p>
 
                 </div>
                 <div class="flex flex-col">
                     <label for="email" class="font-bold">Email</label>
                     <input type="text" id="email" placeholder="Email"
                         class="p-1.5 border rounded border-blue-200 focus:outline-blue-500">
-                    <p id="email-error" class=" absolute left-1/2  text-sm text-red-500"></p>
+                    <p id="email-error" class=" hidden absolute left-1/2  text-sm text-red-500"></p>
 
                 </div>
                 <div class="flex flex-col">
@@ -54,7 +54,7 @@
     <div class="p-4 flex flex-col gap-8 rounded bg-white shadow-2xl  mx-auto w-2xl sm:w-6xl mt-20 h-auto">
 
         <div class="flex  justify-between items-center">
-            <h1 class=" text-xl sm:text-4xl font-bold">Student ManageMent System <i class="ri-graduation-cap-fill"></i>
+            <h1 class=" text-xl sm:text-3xl font-bold">Student ManageMent System <i class="ri-graduation-cap-fill"></i>
             </h1>
             <!-- search-bar  -->
             <div class="flex gap-2 items-center">
@@ -63,6 +63,11 @@
                     placeholder="Filter students by name..">
 
             </div>
+
+            <button id="sort-marks" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 rounded cursor-pointer">
+                Sort by Marks ↑
+            </button>
+
             <button
                 class="overlay bg-blue-500 text-white font-bold px-3 py-1.5 rounded hover:bg-blue-600 cursor-pointer active:scale-95 transition-all duration-200">Add
                 Student <i class="ri-user-add-line"></i></button>
@@ -89,9 +94,6 @@
             </table>
         </div>
     </div>
-
-
-
 
 
     <script type="module" src="script.js"></script>
