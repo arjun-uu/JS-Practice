@@ -20,16 +20,19 @@ function ToggleOverlay() {
         form.reset();
         editId = null;
         saveBtn.textContent = 'Submit';
-        nameError.textContent = "";
-        emailError.textContent = "";
+
     }
 }
 overlay.addEventListener('click', () => {
     overlay.classList.add('hidden');
+    form.reset();
+    saveBtn.textContent = "Submit"
 })
 
 document.querySelectorAll('.overlay').forEach(btn => {
     btn.addEventListener('click', ToggleOverlay);
+    form.reset();
+    saveBtn.textContent = "Submit"
 });
 
 
@@ -120,12 +123,11 @@ form.addEventListener('submit', (e) => {
         saveBtn.textContent = "Submit";
     } else {
         // Add()
-        if (isValid) {
-            students.push({ id: Date.now(), name, email, marks, status });
-            ToggleOverlay();
-        }
+        students.push({ id: Date.now(), name, email, marks, status });
+
     }
 
+    ToggleOverlay();
     setStudent("students", students);
     renderStudents();
 });
@@ -138,9 +140,10 @@ function renderStudents() {
     const filterValue = filterInput.value.trim().toLowerCase();
     const filtered = students.filter(s => s.name.toLowerCase().includes(filterValue));
     // no result found
-    if (!filtered.length) table.innerHTML = `
-    <p class = "text-xl text-center">No result found <i class="ri-user-forbid-line"></i></p>
-    `
+    if (!filtered.length) {
+        table.innerHTML = `<tr><td colspan="6" class="text-xl text-center p-4">No result found <i class="ri-user-forbid-line"></i></td></tr>`;
+        return;
+    }
     filtered.forEach((s, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
