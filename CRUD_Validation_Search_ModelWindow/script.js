@@ -39,39 +39,57 @@ const emailError = document.getElementById('email-error');
 
 let isValid = true;
 
-function validateName() {
-    nameError.textContent = "";
-    const name = nameInput.value.trim();
 
-    // name validation
+// error display function()
+function showError(element, message) {
+    element.textContent = message;
+    element.classList.remove("hidden");
+}
+
+function clearError(element) {
+    element.textContent = "";
+    element.classList.add("hidden");
+}
+
+// name validation
+function validateName() {
+    const name = nameInput.value.trim();
     const nameRegx = /^[a-zA-Z]+ [a-zA-Z]+$/;
     if (!name) {
-        nameError.textContent = "Name is required";
+        showError(nameError, "Name is required");
         isValid = false;
     }
     else if (name.length < 6) {
-        nameError.textContent = "Write full name"
+        showError(nameError, "Write complete name");
         isValid = false;
     }
     else if (!nameRegx.test(name)) {
-        nameError.textContent = "Enter full name";
+        showError(nameError, "Enter full name");
         isValid = false;
     }
-}
+    else {
+        clearError(nameError)
+        return true;
 
+    }
+}
+// email validation
 function validateEmail() {
     const email = emailInput.value.trim();
-    emailError.textContent = "";
-
 
     const emailRegx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!email) {
-        emailError.textContent = "Email is required";
+        showError(emailError, "Email is required");
         isValid = false;
     }
     else if (!emailRegx.test(email)) {
-        emailError.textContent = "Enter a valid email";
+        showError(emailError, "Enter valid email")
         isValid = false;
+    }
+    else {
+        clearError(emailError);
+        return true;
+
     }
 }
 
