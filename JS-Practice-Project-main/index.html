@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Assignmenet</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body class="min-h-screen bg-gradient-to-r from-blue-500 to-cyan-900">
+
+    <!-- confirm delete overlay  -->
+    <div id="delete-overlay"
+        class="hidden fixed inset-0 z-100 bg-black/70 backdrop-blur-md flex justify-center items-center">
+        <div class="w-md bg-gray-900 p-5 rounded-2xl border-gray-500 border flex flex-col gap-4">
+            <h1 class="text-white text-2xl font-semibold">Delete reservation</h1>
+            <p class="text-white text-md font-semibold">Are you sure to delete this reservation?</p>
+            <div class="flex gap-3 justify-end border-t border-gray-600 pt-2">
+                <button id="cancel-delete"
+                    class="text-white font-semibold rounded-3xl bg-gray-600 p-2 px-4 hover:bg-gray-700 active:scale-95 transition-all duration-200 cursor-pointer">Cancel</button>
+                <button id="confirm-delete"
+                    class="text-white font-semibold rounded-3xl bg-red-500 p-2 px-4 hover:bg-red-600 active:scale-95 transition-all duration-200 cursor-pointer">Delete</button>
+            </div>
+        </div>
+    </div>
+    <!-- error delete overlay  -->
+    <div id="error-delete"
+        class="hidden fixed inset-0 z-100 bg-black/70 backdrop-blur-md flex justify-center items-center">
+        <div class="w-md bg-gray-900 p-5 rounded-2xl border-gray-500 border flex flex-col gap-4">
+            <h1 class="text-white text-2xl font-semibold">Delete Not Allowed</h1>
+            <p class="text-white text-md font-semibold">Completed Reservation cannot be deleted.</p>
+            <div class="flex gap-3 justify-end border-t border-gray-600 pt-2">
+                <button id="ok"
+                    class="text-white font-semibold rounded-3xl bg-gray-600 p-2 px-6 hover:bg-gray-700 active:scale-95 transition-all duration-200 cursor-pointer">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- form add edit overlay  -->
+    <div id="overlay" class="hidden fixed inset-0 z-100 bg-black/70 backdrop-blur-md flex justify-center items-center">
+        <div class=" form-overlay bg-gray-900 p-5 rounded-2xl border-gray-500 border">
+            <div class="border-b-2 border-gray-800 p-2 flex items-center">
+                <h1 id="form-header" class="text-xl text-white">Add Reservation</h1>
+            </div>
+            <form id="form" class="flex flex-col gap-6 mt-4">
+                <div class="flex gap-8 ">
+                    <!-- name -->
+                    <div class="flex flex-col w-1/2">
+                        <label for="usename" class=" text-white text-sm">User Name*</label>
+                        <input class=" border-0 text-white rounded-md p-1 bg-gray-800 border-gray-700" type="text"
+                            name="" id="username">
+                        <p id="usernameError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                    <div class="flex flex-col w-1/2">
+                        <!-- email -->
+                        <label class=" text-white text-sm" for="email">Email Address*</label>
+                        <input class=" text-white border-0 rounded-md p-1 bg-gray-800 border-gray-700" type="email"
+                            name="" id="email">
+                        <p id="emailError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                </div>
+                <div class="flex gap-8 ">
+                    <!-- mobile number -->
+                    <div class="flex flex-col w-1/2">
+                        <label class=" text-white text-sm" for="mobil-number">Mobile Number*</label>
+                        <input min="0" class="text-white border-0 rounded-md p-1 bg-gray-800 border-gray-700 "
+                            type="number" name="" id="mobile-number">
+                        <p id="mobileNoError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                    <!-- vehicle number -->
+                    <div class="flex flex-col w-1/2">
+                        <label class=" text-white text-sm" for="vehicle-number">Vehicle Number*</label>
+                        <input class="text-white border-0 rounded-md p-1 bg-gray-800 border-gray-700" type="text"
+                            name="" id="vehicle-number">
+                        <p id="vehicleError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                </div>
+                <div class="flex gap-8 ">
+                    <!-- slot number -->
+                    <div class="flex flex-col w-1/2">
+                        <label class=" text-white text-sm" for="slot-number">Slot Number*</label>
+                        <input class="text-white border-0 rounded-md p-1 bg-gray-800 border-gray-700" type="text"
+                            name="" id="slot-number">
+                        <p id="slotError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                    <!-- parking number -->
+                    <div class="flex flex-col w-1/2">
+                        <label class=" text-white text-sm" for="parking-number">Parking Number*</label>
+                        <input class="text-white border-0 rounded-md p-1 bg-gray-800 border-gray-700" type="text"
+                            name="" id="parking-number">
+                        <p id="parkingError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                </div>
+                <div class="flex gap-8 ">
+                    <!-- start time and date -->
+                    <div class="flex flex-col w-1/2">
+                        <label class=" text-white text-sm" for="start-time">Start Time*</label>
+                        <input class="border-0 text-white rounded-md p-1 bg-gray-800 border-gray-700"
+                            type="datetime-local" name="" id="start-time">
+                        <p id="startTimeError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                    <!-- end time and date -->
+                    <div class="flex flex-col w-1/2">
+                        <label class=" text-white text-sm" for="end-time">End Time*</label>
+                        <input class="text-white border-0 rounded-md p-1 bg-gray-800 border-gray-700"
+                            type="datetime-local" name="" id="end-time">
+                        <p id="endTimeError" class="hidden text-red-400 text-sm  "></p>
+                    </div>
+                </div>
+                <!-- reservation status -->
+                <div class="flex flex-col">
+                    <label class=" text-white text-sm" for="reservation-status">Reservation Status*</label>
+                    <select class=" text-white border-0 rounded-md p-1 bg-gray-800 border-gray-700 " name=""
+                        id="reservation-status">
+                        <option value="">Select Status</option>
+                        <option value="active">Active</option>
+                        <option value="booked">Booked</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <p id="reservationError" class="hidden text-red-400 text-sm  "></p>
+                </div>
+
+                <div class="flex gap-3 justify-end border-t border-gray-600 pt-5">
+                    <button type="button"
+                        class="toggle-btn text-white font-semibold rounded-3xl bg-gray-600 p-2 px-4 hover:bg-gray-700 active:scale-95 transition-all duration-200 cursor-pointer">Cancel</button>
+                    <button type="submit" id="save-btn"
+                        class="text-white font-semibold rounded-3xl bg-violet-400 p-2 px-4 hover:bg-violet-500 active:scale-95 transition-all duration-200 cursor-pointer">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- dashboard header  -->
+    <div class="mt-10 bg-gray-900 p-6 mx-5 sm:mx-10 rounded-xl shadow-2xl ">
+        <div class="flex flex-col sm:flex-row justify-between gap-5  items-center">
+            <h1 class="text-white font-bold text-xl sm:text-3xl">Parking Slot Reservation System</h1>
+
+            <div class="flex flex-col flex-wrap sm:flex-row  gap-3">
+                <input type="text" name="" id="search-input" placeholder="Search reservation.."
+                    class="text-white border focus:outline-blue-800 rounded-3xl p-1 px-3 bg-gray-800 border-gray-700">
+
+
+                <select id="sort-by" class="text-white border rounded-3xl p-1 px-4 bg-gray-800 border-gray-700"
+                    id="sort-by">
+                    <option value="">Sort by</option>
+                    <option value="startTime">Start Time</option>
+                    <option value="status">Reservation Status</option>
+                </select>
+                <button
+                    class="toggle-btn text-white font-semibold rounded-3xl shadow-[0px_0px_75px_0px_rgba(82,9,251,0.6)] bg-gradient-to-r from-indigo-500 to-blue-500 p-2 px-4 hover:bg-violet-500 active:scale-95 transition-all duration-200 cursor-pointer"><i
+                        class="ri-add-line"></i>
+                    Add Reservation</button>
+            </div>
+
+        </div>
+        <!-- dashboard table data  -->
+        <div class="overflow-x-auto min-w-full mt-10">
+            <table class="min-w-full divide-y shadow-lg rounded-lg overflow-hidden">
+                <thead class=" text-gray-300">
+                    <tr>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">RESERVATION ID</th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">USER NAME</th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">EMAIL ADDRESS</th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">MOBILE NUMBER</th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">VEHICLE NUMBER</th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">PARKING AREA</th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">SLOT NUMBER</th>
+                        <th id="sort-start"
+                            class="cursor-pointer p-2 px-6 text-left text-xs font-medium   whitespace-nowrap">START TIME
+                            <i class="ri-arrow-up-down-fill"></i>
+                        </th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">END TIME</th>
+                        <th id="sort-status"
+                            class="cursor-pointer p-2 px-6 text-left text-xs font-medium   whitespace-nowrap">
+                            RESERVATION STATUS <i class="ri-arrow-up-down-fill"></i></th>
+                        <th class="p-2 px-6 text-left text-xs font-medium whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody id="table-data" class="divide-y divide-gray-600 text-gray-200">
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- pagination -->
+        <div class="flex justify-between  mt-5">
+            <p id="pagination-details" class=" text-gray-200"></p>
+            <div id="pagination-controls" class="flex gap-2 "></div>
+        </div>
+    </div>
+
+    <!-- script  -->
+    <script type="module" defer src="main.js"></script>
+</body>
+
+</html>
